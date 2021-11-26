@@ -27,7 +27,7 @@ const App = () => {
   useEffect(() => {
     setLoading(true)
     getAllPokemons()
-  }, [getAllPokemons])
+  }, [])
 
 
   if(loading)return <Loading />
