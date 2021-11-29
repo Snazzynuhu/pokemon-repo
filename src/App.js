@@ -2,18 +2,18 @@ import React,{useState, useEffect} from 'react';
 import "./styles/index.css";
 import PokemonList from "./components/PokemonList";
 import Loading from "./components/Loading";
-
+import {  Modal } from './components/Modal';
 const App = () => {
   const [loading, setLoading] = useState(true)
   const [pokemons, setpokemons] = useState([]);
   const [currentUrl, setCurrentUrl] = useState("https://pokeapi.co/api/v2/pokemon");
 
   const getAllPokemons = async () =>{
-    const response = await fetch(currentUrl)
+    try {
+      const response = await fetch(currentUrl)
     setLoading(false);
     const data = await response.json()
     setCurrentUrl(data.next)
-    console.log(data.results);
 
     function createPokemonObject(result){
         result.forEach( async (pokemon) =>{
@@ -22,7 +22,15 @@ const App = () => {
           setpokemons(currentList => [...currentList, data])
         })
     }
-    createPokemonObject(data.results)
+    createPokemonObject(data.results);
+    
+      
+    } catch (error) {
+      console.error("Couldn't get item,please try again")
+      setLoading(false)
+      throw new Error("Poor network connection, please try again...")
+    }
+    
   }
   useEffect(() => {
     setLoading(true)
@@ -33,16 +41,20 @@ const App = () => {
   if(loading)return <Loading />
   return (
     <>
+   
       <h1 className="title">POKEMON EVOLUTION</h1>
       <div className ="pokemon-container">
         <div className= "list-container">
-        {pokemons.map((pokemon, index)=>{
-          return <PokemonList 
+        {pokemons.map((pokemon)=>{
+          return <PokemonList key={pokemon.id} 
           id={pokemon.id}
           name={pokemon.name}
+          weight={pokemon.weight}
+          // stats={pokemon.stats[0].stat.name}
           image={pokemon.sprites.other.dream_world.front_default}
+          homeImg={pokemon.sprites.other.home.front_default}
           type={pokemon.types[0].type.name}
-          key={pokemon.id}/>
+          />
         })}
         </div> <br/>
       <button className="load-more-btn" onClick={()=> getAllPokemons()}>Load More</button>

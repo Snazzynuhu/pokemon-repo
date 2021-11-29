@@ -1,0 +1,39 @@
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+}
+
+.modalContent {
+  background: #fff;
+  border-radius: 1rem;
+  position: relative;
+  z-index: 1000;
+  margin: 0 auto;
+  width: 400px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.closeModal {
+  position: absolute;
+  font-size: 1.5rem;
+  right: 10px;
+  top: 5px;
+}
+.closeModal:hover {
+  cursor: pointer;
+  color: red;
+}
+.content {
+  display: flex;
+  justify-content: space-evenly;
+}
