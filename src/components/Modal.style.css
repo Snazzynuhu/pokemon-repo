@@ -37,3 +37,15 @@
   display: flex;
   justify-content: space-evenly;
 }
+@media (max-width: 375px) {
+  .modalContent {
+  background: #fff;
+  border-radius: 1rem;
+  position: relative;
+  z-index: 1000;
+  margin: 0 auto;
+  width: 250px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+}
